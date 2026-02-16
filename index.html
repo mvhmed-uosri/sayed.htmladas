@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رمضان كريم 🌙</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    font-family:'Tahoma';
+    direction:rtl;
+    overflow:hidden;
+    color:white;
+    position:relative;
+    background:linear-gradient(to bottom, #001a33, #003366);
+}
+
+/* خلفية RGB بطيئة جدًا */
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;height:100%;
+    background:linear-gradient(-45deg,#001f3f,#00264d,#003366,#001a33);
+    background-size:400% 400%;
+    animation:bgMove 40s ease infinite;
+    z-index:-5;
+}
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* نجوم */
+.star{
+    position:absolute;
+    width:3px;height:3px;
+    background:white;
+    border-radius:50%;
+    animation: twinkle 3s infinite alternate;
+    z-index:-4;
+}
+@keyframes twinkle{
+    from{opacity:0.2;}
+    to{opacity:1;}
+}
+
+/* الهلال */
+.moon{
+    position:absolute;
+    top:50px;right:80px;
+    font-size:80px;
+    animation:floatMoon 6s ease-in-out infinite;
+    z-index:-2; /* خلي الفوانيس تحت الهلال */
+    text-shadow: 0 0 15px gold, 0 0 30px orange;
+}
+@keyframes floatMoon{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+    100%{transform:translateY(0);}
+}
+
+/* الفوانيس */
+.lantern{
+    position:fixed;
+    top:-100px;
+    font-size:25px;
+    z-index:-3; /* تحت الهلال والنص */
+    animation-name:lanternFall;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+}
+
+/* الإدخال */
+#title{
+    font-size:32px;
+    margin-bottom:15px;
+    transition:0.5s;
+    z-index:1;
+    text-shadow:0 0 10px gold;
+}
+input{
+    padding:12px;
+    width:280px;
+    font-size:18px;
+    border-radius:10px;
+    border:none;
+    text-align:center;
+    z-index:1;
+}
+button{
+    padding:10px 25px;
+    margin-top:15px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:gold;
+    z-index:1;
+}
+
+/* النص المتحرك */
+#output{
+    margin-top:40px;
+    font-size:36px;
+    font-weight:bold;
+    text-align:center;
+    color:gold;
+    text-shadow:0 0 20px gold, 0 0 40px orange;
+    min-height:200px;
+    animation: floatText 5s ease-in-out infinite,
+               glow 3s ease-in-out infinite alternate;
+    z-index:1;
+}
+
+/* حركة طفو */
+@keyframes floatText{
+    0%{ transform:translateY(0px);}
+    50%{ transform:translateY(-15px);}
+    100%{ transform:translateY(0px);}
+}
+
+/* توهج */
+@keyframes glow{
+    from{ text-shadow:0 0 15px gold,0 0 30px orange;}
+    to{ text-shadow:0 0 40px gold,0 0 50px orange;}
+}
+
+/* ألعاب نارية */
+.firework{
+    position:absolute;
+    width:5px;height:5px;
+    background:yellow;
+    border-radius:50%;
+    animation: explode 1s ease-out forwards;
+}
+@keyframes explode{
+    to{
+        transform:translate(var(--x),var(--y));
+        opacity:0;
+    }
+}
+
+/* حركة الفانوس للأسفل */
+@keyframes lanternFall{
+    0% { top:-100px; }
+    100% { top:110%; }
+}
+
+/* زخارف ذهبية إضافية */
+.goldDot{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:gold;
+    border-radius:50%;
+    animation: twinkle 4s infinite alternate;
+    z-index:-4;
+}
+</style>
+</head>
+<body>
+
+<div class="moon">🌙</div>
+
+<div id="title">اكتب اسمك 🌙</div>
+<input type="text" id="nameInput" placeholder="اكتب اسمك هنا">
+<button onclick="celebrate()">تم</button>
+
+<div id="output"></div>
+
+<audio id="song">
+<source src="Mohamed_Abdelmetlb_-_Ramdan_Gana.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* نجوم */
+for(let i=0;i<200;i++){
+    let star=document.createElement("div");
+    star.className="star";
+    star.style.top=Math.random()*100+"%";
+    star.style.left=Math.random()*100+"%";
+    star.style.animationDuration=(Math.random()*4+2)+"s";
+    document.body.appendChild(star);
+}
+
+/* زخارف ذهبية */
+for(let i=0;i<200;i++){
+    let dot=document.createElement("div");
+    dot.className="goldDot";
+    dot.style.top=Math.random()*100+"%";
+    dot.style.left=Math.random()*100+"%";
+    dot.style.animationDuration=(Math.random()*5+2)+"s";
+    document.body.appendChild(dot);
+}
+
+/* 900 فانوس مستمر خلف الهلال */
+for(let i=0;i<900;i++){
+    let lantern=document.createElement("div");
+    lantern.className="lantern";
+    lantern.innerText="🏮";
+    lantern.style.left=Math.random()*100+"%";
+    lantern.style.fontSize=(20 + Math.random()*25)+"px";
+    lantern.style.animationDuration=(5 + Math.random()*10)+"s";
+    document.body.appendChild(lantern);
+}
+
+/* كتابة تدريجية */
+function typeWriter(text,element){
+    let i=0;
+    element.innerHTML="";
+    function typing(){
+        if(i<text.length){
+            element.innerHTML+=text.charAt(i);
+            i++;
+            setTimeout(typing,35);
+        }
+    }
+    typing();
+}
+
+/* ألعاب نارية */
+function fireworks(count = 60){
+    for(let i=0;i<count;i++){
+        let fw=document.createElement("div");
+        fw.className="firework";
+        fw.style.left=window.innerWidth/2+"px";
+        fw.style.top=window.innerHeight/2+"px";
+        fw.style.setProperty('--x',(Math.random()*500-250)+'px');
+        fw.style.setProperty('--y',(Math.random()*500-250)+'px');
+        document.body.appendChild(fw);
+        setTimeout(()=>fw.remove(),1000);
+    }
+}
+
+/* ألعاب نارية عند تحميل الصفحة */
+window.onload = function(){
+    fireworks(80); // أولية عند دخول الصفحة
+}
+
+/* كل مرة تضغط أي شيء على الصفحة تظهر ألعاب نارية */
+document.body.addEventListener("click", function(){
+    fireworks(50);
+});
+
+function celebrate(){
+    let name=document.getElementById("nameInput").value;
+    if(name.trim()==="") return;
+
+    document.getElementById("title").style.opacity=0;
+    document.getElementById("nameInput").style.display="none";
+    document.querySelector("button").style.display="none";
+
+    let message=`🌙✨ مرحبًا بشهر رمضان المبارك! 🌙✨
+اللهم اجعله شهر رحمة ومغفرة وبركة، شهر الطاعة والصلاة والصوم، شهر الصفاء والنقاء.
+
+🌙✨ رمضان كريم يا ${name} ✨🌙
+
+أسأل الله أن يجعله عليك شهر خير ورحمة وبركة،
+وأن يرزقك فيه صفاء القلب ونقاء الروح،
+وأن يكتب لك فيه الأجر العظيم،
+ويغفر لك الذنوب،
+ويشرح صدرك،
+ويرزقك السعادة التي لا تزول،
+ويحقق لك كل ما تتمناه 🤍
+
+اللهم بلغنا رمضان لا فاقدين ولا مفقودين،
+واجعل أيامه نورًا،
+ولياليه سكينة،
+وساعاته طمأنينة،
+واكتب لنا فيه دعوة لا تُرد،
+ورزقًا لا يُعد،
+وبابًا للجنة لا يُسد 🌙✨
+
+🌟💫 كل عام وأنتم بخير، رمضان مبارك عليكم وعلى أحبابكم 💫🌟`;
+
+    typeWriter(message,document.getElementById("output"));
+
+    fireworks(); // ألعاب نارية إضافية بعد الضغط على تم
+    document.getElementById("song").play();
+}
+
+</script>
+
+</body>
+</html>
